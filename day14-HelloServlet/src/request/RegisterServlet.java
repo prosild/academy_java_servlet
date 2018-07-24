@@ -23,9 +23,7 @@ public class RegisterServlet extends HttpServlet {
 	 * 1. 서버의 리소스 요청을 위해서 사용
 	 * 2. 등록화면 요청에 사용함
 	 */
-	protected void doGet(HttpServletRequest request
-			           , HttpServletResponse response) 
-			        		   throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// request 한글
 		request.setCharacterEncoding("utf-8");
