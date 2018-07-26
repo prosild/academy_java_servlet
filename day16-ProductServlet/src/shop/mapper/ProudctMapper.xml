@@ -57,7 +57,8 @@
              , p.prodname
              , p.price   
              , p.quantity
-          FROM product p 
+          FROM product p
+         ORDER BY p.prodcode DESC
     </select>
     
     <select id="isExists" parameterType="Product" 

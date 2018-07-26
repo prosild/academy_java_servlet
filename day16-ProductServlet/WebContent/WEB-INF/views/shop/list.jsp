@@ -11,7 +11,9 @@
 <style type="text/css">
 	table, tr, th, td {
 		border: 1px solid black;
+		text-align: center;
 	}
+	
 	a {
 		color: black;
 		text-decoration: none;
@@ -20,28 +22,35 @@
 </head>
 <body>
 	<h3>제품 전체 목록</h3>
+	<hr>
 	<table>
 		<tr>
 			<th>제품코드</th>
 			<th>제품이름</th>
 			<th>가격</th>
 			<th>재고</th>
+			<th></th>
 		</tr>
 		<c:if test="${not empty products}">
 			<c:forEach items="${products}" var="product">
 				<tr>
 					<td>${product.prodCode}</td>
-					<td>
-						<a href="detail?prodCode=${product.prodCode}">${product.prodName}</a>
-					</td>
-					<td>${product.price}</td>
+					<td><a href="detail?prodCode=${product.prodCode}">${product.prodName}</a></td>
+					<td><fmt:formatNumber value="${product.price}" type="currency" currencyCode="KRW" /></td>
 					<td>${product.quantity}</td>
+					<td><a href="delete?prodCode${product.prodCode}">삭제</a></td>
 				</tr>
 			</c:forEach>
+				<tr>
+					<td colspan="5" style="text-align: right;">
+						<a href="insert">신규 제품 추가</a>
+						<a href="menu">메뉴로...</a>
+					</td>
+				</tr>
 		</c:if>
 		<c:if test="${empty products}">
 			<tr>
-				<td colspan="4">등록된 제품정보가 존재하지 않습니다</td>
+				<td colspan="5">등록된 제품정보가 존재하지 않습니다</td>
 			</tr>
 		</c:if>
 	</table>

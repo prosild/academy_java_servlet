@@ -41,16 +41,14 @@ public class ListServlet extends HttpServlet {
 		
 		// 4. 조회 결과가 추가된 request를
 		//    적절한 목록 뷰(list.jsp)로 전달(페이지 이동)
+		String view = "listJsp";
 		RequestDispatcher reqd;
-		reqd = request.getRequestDispatcher("listJsp");
+		reqd = request.getRequestDispatcher(view);
 		
 		reqd.forward(request, response);
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
