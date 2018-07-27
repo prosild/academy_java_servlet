@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="book.mapper.BookMapper">
+    <insert id="insert" parameterType="Book">
+        INSERT INTO book (bookid, title, author, price, isbn, publish)
+        VALUES (#{bookId}, #{title}, #{author}, #{price}, #{isbn}, #{publish})
+    </insert>
+    
+    <update id="update" parameterType="Book">
+        UPDATE book b
+         <set>
+               b.moddate = SYSDATE
+            <if test="title != null">
+             , b.title = #{title}
+            </if>
+            <if test="author != null">
+             , b.author = #{author}
+            </if>
+            <if test="author != null">
+             , b.price = #{price}
+            </if>
+            <if test="isbn != null">
+             , b.isbn = #{isbn}
+            </if>
+            <if test="publish != null">
+             , b.publish = #{publish}
+            </if>
+         </set>
+         <trim prefix="SET" prefixOverrides="," />
+          WHERE b.bookid = #{bookId}
+    </update>
+    
+    <delete id="delete" parameterType="Book">
+        DELETE FROM book b
+        <if test="bookId != null">
+         WHERE b.bookid = #{bookId}
+        </if>
+    </delete>
+    
+    <select id="selectOne" parameterType="Book" resultType="Book">
+        SELECT b.bookid
+             , b.title
+             , b.author
+             , b.price
+             , b.isbn
+             , b.publish
+          FROM book b
+         WHERE b.bookid = #{bookId}
+    </select>
+    
+    <select id="selectAll" resultType="Book">
+        SELECT b.bookid
+		     , b.title
+		     , b.author
+		     , b.price
+		     , b.isbn
+		     , b.publish
+          FROM book b
+    </select>
+    
+    <select id="selectPrice" parameterType="map" resultType="Book">
+        SELECT b.bookid
+		     , b.title
+		     , b.author
+		     , b.price
+		     , b.isbn
+		     , b.publish
+		  FROM book b
+		 WHERE b.PRICE BETWEEN #{low} AND #{high}
+    </select>
+    
+    <select id="selectKeyword" parameterType="string" resultType="Book">
+        SELECT b.bookid
+		     , b.title
+		     , b.author
+		     , b.price
+		     , b.isbn
+		     , b.publish
+		  FROM book b
+		 WHERE b.TITLE LIKE '%' || #{keyword} || '%' 
+    </select>   
+    
+    <select id="totalCount" resultType="int">
+        SELECT COUNT(b.BOOKID)
+          FROM book b
+    </select>
+    
+    <select id="isExists" parameterType="Book" resultType="string">
+        SELECT b.bookid
+          FROM book b
+         WHERE b.bookid = #{bookId}
+    </select>
+</mapper>
